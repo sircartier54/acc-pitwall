@@ -18,7 +18,6 @@ class ConnectionManager:
             try:
                 await connection.send_json(message)
             except Exception:
-                # If a client disconnects unexpectedly, remove them
                 self.disconnect(connection)
 
 manager = ConnectionManager()
