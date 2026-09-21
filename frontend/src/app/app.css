@@ -1,144 +1,173 @@
 :host {
   display: block;
   min-height: 100vh;
-  background-color: #0b0e14;
-  color: #f1f5f9;
-  font-family: 'JetBrains Mono', 'Segoe UI Mono', monospace, sans-serif;
+  background-color: #050505;
+  color: #e0e0e0;
+  font-family: 'JetBrains Mono', 'Consolas', monospace;
+  text-transform: uppercase;
 }
 
 .pitwall-container {
-  padding: 2rem;
-  max-width: 1100px;
+  padding: 1rem;
+  max-width: 1200px;
   margin: 0 auto;
 }
 
+/* Industrial status bar instead of soft web header */
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid #1e293b;
-  padding-bottom: 1rem;
-  margin-bottom: 2rem;
+  background-color: #111;
+  border: 1px solid #333;
+  padding: 0.5rem 1rem;
+  margin-bottom: 1.5rem;
 }
 
 .header h1 {
-  font-size: 1.5rem;
+  font-size: 1rem;
   margin: 0;
-  letter-spacing: 0.1em;
+  color: #fff;
+  letter-spacing: 0.05em;
 }
 
 .header h1 span {
-  color: #64748b;
-  font-size: 0.85rem;
+  color: #666;
+  font-size: 0.8rem;
+  margin-left: 0.5rem;
 }
 
+/* Hard rectangular status block */
 .status-pill {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.35rem 0.85rem;
-  border-radius: 9999px;
+  padding: 0.25rem 0.5rem;
   font-size: 0.75rem;
-  font-weight: 600;
-  background-color: rgba(239, 68, 68, 0.15);
-  color: #ef4444;
-}
-
-.status-pill .dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background-color: #ef4444;
+  font-weight: bold;
+  background-color: #330000;
+  color: #ff0000;
+  border: 1px solid #ff0000;
 }
 
 .status-pill.online {
-  background-color: rgba(34, 197, 94, 0.15);
-  color: #22c55e;
+  background-color: #003300;
+  color: #00ff00;
+  border: 1px solid #00ff00;
 }
 
-.status-pill.online .dot {
-  background-color: #22c55e;
+.status-pill .dot {
+  display: none;
 }
 
+/* Seamless grid resembling docked software panels */
 .dash-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: repeat(3, 1fr); /* Force exactly 3 equal columns */
+  gap: 2px; /* Very thin gap acts as a panel splitter */
+  background-color: #333;
+  border: 2px solid #333;
+}
+
+/* Make Lap Time span all 3 columns and align horizontally */
+.time-card {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+}
+
+.time-card .label {
+  border-bottom: none;
+  margin-bottom: 0;
+  font-size: 1rem;
 }
 
 .card {
-  background: #131923;
-  border: 1px solid #1e293b;
-  border-radius: 8px;
+  background: #0a0a0a;
   padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
 }
 
 .card .label {
   display: block;
   font-size: 0.75rem;
-  color: #64748b;
-  letter-spacing: 0.05em;
+  color: #777;
+  border-bottom: 1px solid #222;
+  padding-bottom: 0.25rem;
+  margin-bottom: 0.5rem;
 }
 
 .card .value {
-  font-size: 2.75rem;
-  font-weight: 700;
-  margin: 0.5rem 0;
+  font-size: 4.5rem;
+  font-weight: normal;
+  margin: 0;
+  color: #fff;
+  line-height: 1;
+  text-align: right;
 }
 
 .card .value .unit {
-  font-size: 0.9rem;
-  color: #94a3b8;
+  font-size: 1rem;
+  color: #555;
+  margin-left: 0.25rem;
 }
 
 .gear-display {
-  font-size: 1.25rem;
-  color: #94a3b8;
+  font-size: 1rem;
+  color: #777;
+  margin-top: auto;
+  text-align: right;
 }
 
 .gear-display span {
-  color: #f59e0b;
-  font-weight: bold;
-  font-size: 1.75rem;
+  color: #ffcc00; /* High-contrast MoTeC yellow */
+  font-size: 3rem;
+  margin-left: 0.5rem;
 }
 
+/* Sharp, flat telemetry bars */
 .bar-track {
-  background: #1e293b;
-  border-radius: 4px;
-  overflow: hidden;
-  height: 10px;
+  background: #1a1a1a;
+  height: 16px;
   width: 100%;
+  margin-top: 1.5rem;
+  border: 1px solid #333;
 }
 
 .bar-track .bar-fill {
-  background: #38bdf8;
+  background: #cccccc;
   height: 100%;
-  transition: width 0.05s ease-out;
+  transition: width 0.05s linear;
 }
 
 .bar-track.vertical {
-  width: 24px;
-  height: 120px;
+  width: 40px;
+  height: 160px;
   display: flex;
   align-items: flex-end;
+  margin-top: 0;
 }
 
 .bar-track.vertical .bar-fill {
   width: 100%;
-  transition: height 0.05s ease-out;
+  transition: height 0.05s linear;
 }
 
+/* Pure colors for driver inputs */
 .bar-track.vertical .bar-fill.throttle {
-  background: #22c55e;
+  background: #00ff00;
 }
 
 .bar-track.vertical .bar-fill.brake {
-  background: #ef4444;
+  background: #ff0000;
 }
 
 .pedal-bars {
   display: flex;
-  gap: 2rem;
+  gap: 3rem;
   margin-top: 1rem;
   justify-content: center;
 }
@@ -148,5 +177,6 @@
   flex-direction: column;
   align-items: center;
   gap: 0.5rem;
-  font-size: 0.75rem;
+  font-size: 0.85rem;
+  color: #888;
 }

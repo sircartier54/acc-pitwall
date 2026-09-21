@@ -8,14 +8,17 @@
   </header>
 
   <section class="dash-grid">
-    <!-- Speed & Gear Card -->
+    <div class="card time-card">
+      <span class="label">LAST LAP</span>
+      <div class="value">{{ formattedLapTime() }}</div>
+    </div>
+
     <div class="card speed-card">
       <span class="label">SPEED</span>
       <div class="value">{{ car().speed_kmh }} <span class="unit">KM/H</span></div>
       <div class="gear-display">GEAR: <span>{{ car().gear }}</span></div>
     </div>
 
-    <!-- RPM & Engine Stats Card -->
     <div class="card rpm-card">
       <span class="label">ENGINE RPM</span>
       <div class="value">{{ car().rpm }} <span class="unit">RPM</span></div>
@@ -24,7 +27,6 @@
       </div>
     </div>
 
-    <!-- Pedals / Inputs Card -->
     <div class="card pedal-card">
       <span class="label">DRIVER INPUTS</span>
       <div class="pedal-bars">

@@ -1,6 +1,6 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TelemetryService } from './services/telemetry.service'; // Note: updated path
+import { TelemetryService } from './services/telemetry.service';
 
 @Component({
   selector: 'app-root',
@@ -12,7 +12,17 @@ import { TelemetryService } from './services/telemetry.service'; // Note: update
 export class App {
   protected telemetryService = inject(TelemetryService);
   
-  // Read signals directly from the service
   protected car = this.telemetryService.carState;
   protected connected = this.telemetryService.isConnected;
+
+  protected formattedLapTime = computed(() => {
+    const ms = this.car().lap_time_ms;
+    if (!ms || ms === 0) return '--:--.---';
+
+    const minutes = Math.floor(ms / 60000);
+    const seconds = Math.floor((ms % 60000) / 1000);
+    const millis = ms % 1000;
+
+    return `${minutes}:${seconds.toString().padStart(2, '0')}.${millis.toString().padStart(3, '0')}`;
+  });
 }
