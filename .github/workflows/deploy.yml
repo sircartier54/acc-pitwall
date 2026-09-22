@@ -4,8 +4,6 @@ on:
   push:
     branches:
       - main
-    paths:
-      - 'frontend/**' # Only trigger if frontend code changes
 
 jobs:
   build-and-deploy:
@@ -29,10 +27,13 @@ jobs:
       - name: Build Angular App
         run: npm run build -- --configuration production
 
+      - name: Debug Output Directory
+        run: ls -R ./dist
+
       - name: Deploy to Netlify
         uses: nwtgck/actions-netlify@v3.0
         with:
-          publish-dir: './frontend/dist/acc-pitwall-client/browser'
+          publish-dir: './frontend/dist/acc-pitwall-client/browser' 
           production-branch: main
           github-token: ${{ secrets.GITHUB_TOKEN }}
           deploy-message: "Deploy from GitHub Actions"
