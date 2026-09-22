@@ -9,7 +9,7 @@ export class TelemetryService {
 
   private readonly wsUrl = isDevMode() 
     ? 'ws://localhost:8000/ws/telemetry'
-    : 'wss://YOUR_RENDER_APP_NAME.onrender.com/ws/telemetry';
+    : 'wss://https://acc-pitwall.onrender.com/ws/telemetry';
 
   public readonly carState = signal<CarState>({
     speed_kmh: 0,
