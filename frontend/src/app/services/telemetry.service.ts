@@ -1,4 +1,4 @@
-import { Injectable, signal } from '@angular/core';
+import { Injectable, signal, isDevMode } from '@angular/core';
 import { CarState } from '../models/telemetry.interface'
 
 @Injectable({
@@ -6,7 +6,10 @@ import { CarState } from '../models/telemetry.interface'
 })
 export class TelemetryService {
   private socket: WebSocket | null = null;
-  private readonly wsUrl = 'ws://localhost:8000/ws/telemetry';
+
+  private readonly wsUrl = isDevMode() 
+    ? 'ws://localhost:8000/ws/telemetry'
+    : 'wss://YOUR_RENDER_APP_NAME.onrender.com/ws/telemetry';
 
   public readonly carState = signal<CarState>({
     speed_kmh: 0,
