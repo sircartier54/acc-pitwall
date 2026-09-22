@@ -1,10 +1,83 @@
 :host {
   display: block;
   min-height: 100vh;
-  background-color: #050505;
-  color: #e0e0e0;
   font-family: 'JetBrains Mono', 'Consolas', monospace;
   text-transform: uppercase;
+  transition: background-color 0.2s ease, color 0.2s ease;
+
+  /* Default / Light Theme */
+  --bg-page: #f3f4f6;
+  --bg-header: #ffffff;
+  --bg-card: #ffffff;
+  --border-subtle: #d1d5db;
+  --border-splitter: #d1d5db;
+  --border-card: #e5e7eb;
+  --text-main: #111827;
+  --text-muted: #6b7280;
+  --text-dim: #9ca3af;
+  --color-gear: #d97706;
+  --bar-bg: #e5e7eb;
+  --bar-border: #d1d5db;
+  --bar-fill-rpm: #374151;
+  --bar-fill-throttle: #16a34a;
+  --bar-fill-brake: #dc2626;
+
+  /* Status Pill - Light */
+  --pill-offline-bg: #fee2e2;
+  --pill-offline-color: #dc2626;
+  --pill-offline-border: #ef4444;
+  --pill-online-bg: #dcfce7;
+  --pill-online-color: #15803d;
+  --pill-online-border: #22c55e;
+
+  /* Theme Button & Switch - Light */
+  --btn-bg: #ffffff;
+  --btn-border: #111827;
+  --btn-text: #111827;
+  --btn-hover-bg: #f3f4f6;
+  --btn-hover-border: #000000;
+  --toggle-track-bg: #e5e7eb;
+  --toggle-thumb-bg: #111827;
+  --toggle-thumb-border: #111827;
+
+  background-color: var(--bg-page);
+  color: var(--text-main);
+}
+
+:host[data-theme='dark'] {
+  --bg-page: #050505;
+  --bg-header: #111111;
+  --bg-card: #0a0a0a;
+  --border-subtle: #333333;
+  --border-splitter: #333333;
+  --border-card: #222222;
+  --text-main: #ffffff;
+  --text-muted: #777777;
+  --text-dim: #555555;
+  --color-gear: #ffcc00;
+  --bar-bg: #1a1a1a;
+  --bar-border: #333333;
+  --bar-fill-rpm: #cccccc;
+  --bar-fill-throttle: #00ff00;
+  --bar-fill-brake: #ff0000;
+
+  /* Status Pill - Dark */
+  --pill-offline-bg: #330000;
+  --pill-offline-color: #ff0000;
+  --pill-offline-border: #ff0000;
+  --pill-online-bg: #003300;
+  --pill-online-color: #00ff00;
+  --pill-online-border: #00ff00;
+
+  /* Theme Button & Switch - Dark */
+  --btn-bg: #111111;
+  --btn-border: #555555;
+  --btn-text: #ffffff;
+  --btn-hover-bg: #222222;
+  --btn-hover-border: #ffffff;
+  --toggle-track-bg: #262626;
+  --toggle-thumb-bg: #ffffff;
+  --toggle-thumb-border: #ffffff;
 }
 
 .pitwall-container {
@@ -18,23 +91,30 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #111;
-  border: 1px solid #333;
+  background-color: var(--bg-header);
+  border: 1px solid var(--border-subtle);
   padding: 0.5rem 1rem;
   margin-bottom: 1.5rem;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
 }
 
 .header h1 {
   font-size: 1rem;
   margin: 0;
-  color: #fff;
+  color: var(--text-main);
   letter-spacing: 0.05em;
 }
 
 .header h1 span {
-  color: #666;
+  color: var(--text-muted);
   font-size: 0.8rem;
   margin-left: 0.5rem;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
 }
 
 /* Hard rectangular status block */
@@ -44,19 +124,93 @@
   padding: 0.25rem 0.5rem;
   font-size: 0.75rem;
   font-weight: bold;
-  background-color: #330000;
-  color: #ff0000;
-  border: 1px solid #ff0000;
+  background-color: var(--pill-offline-bg);
+  color: var(--pill-offline-color);
+  border: 1px solid var(--pill-offline-border);
+  transition: all 0.2s ease;
 }
 
 .status-pill.online {
-  background-color: #003300;
-  color: #00ff00;
-  border: 1px solid #00ff00;
+  background-color: var(--pill-online-bg);
+  color: var(--pill-online-color);
+  border: 1px solid var(--pill-online-border);
 }
 
 .status-pill .dot {
   display: none;
+}
+
+/* Rectangular Brutalist Theme toggle button */
+.theme-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  background-color: var(--btn-bg);
+  border: 1px solid var(--btn-border);
+  color: var(--btn-text);
+  padding: 0.25rem 0.65rem;
+  font-family: inherit;
+  font-size: 0.75rem;
+  font-weight: bold;
+  cursor: pointer;
+  letter-spacing: 0.08em;
+  border-radius: 0;
+  transition: background-color 0.1s ease, border-color 0.1s ease, color 0.1s ease, box-shadow 0.1s ease;
+  user-select: none;
+}
+
+.theme-toggle-btn:hover {
+  background-color: var(--btn-hover-bg);
+  border-color: var(--btn-hover-border);
+  box-shadow: 2px 2px 0px var(--border-splitter);
+}
+
+.theme-toggle-btn:active {
+  transform: translate(1px, 1px);
+  box-shadow: 1px 1px 0px var(--border-splitter);
+}
+
+.theme-toggle-btn:focus-visible {
+  outline: 2px solid var(--color-gear);
+  outline-offset: 1px;
+}
+
+/* Hard rectangular brutalist toggle track */
+.toggle-track {
+  position: relative;
+  display: inline-block;
+  width: 34px;
+  height: 18px;
+  background-color: var(--toggle-track-bg);
+  border: 1px solid var(--btn-border);
+  border-radius: 0;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+/* Sharp rectangular block thumb */
+.toggle-thumb {
+  position: absolute;
+  top: 1px;
+  left: 1px;
+  width: 14px;
+  height: 14px;
+  background-color: var(--toggle-thumb-bg);
+  border: 1px solid var(--toggle-thumb-border);
+  border-radius: 0;
+  transition: transform 0.12s cubic-bezier(0.2, 0, 0, 1);
+  box-sizing: border-box;
+}
+
+.toggle-track.dark .toggle-thumb {
+  transform: translateX(16px);
+}
+
+.theme-label {
+  font-size: 0.75rem;
+  min-width: 2.8rem;
+  text-align: left;
+  letter-spacing: 0.08em;
+  font-weight: bold;
 }
 
 /* Seamless grid resembling docked software panels */
@@ -64,8 +218,9 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr); /* Force exactly 3 equal columns */
   gap: 2px; /* Very thin gap acts as a panel splitter */
-  background-color: #333;
-  border: 2px solid #333;
+  background-color: var(--border-splitter);
+  border: 2px solid var(--border-splitter);
+  transition: background-color 0.2s ease, border-color 0.2s ease;
 }
 
 /* Make Lap Time span all 3 columns and align horizontally */
@@ -85,62 +240,68 @@
 }
 
 .card {
-  background: #0a0a0a;
+  background: var(--bg-card);
   padding: 1.5rem;
   display: flex;
   flex-direction: column;
+  transition: background-color 0.2s ease;
 }
 
 .card .label {
   display: block;
   font-size: 0.75rem;
-  color: #777;
-  border-bottom: 1px solid #222;
+  color: var(--text-muted);
+  border-bottom: 1px solid var(--border-card);
   padding-bottom: 0.25rem;
   margin-bottom: 0.5rem;
+  transition: border-color 0.2s ease, color 0.2s ease;
 }
 
 .card .value {
   font-size: 4.5rem;
   font-weight: normal;
   margin: 0;
-  color: #fff;
+  color: var(--text-main);
   line-height: 1;
   text-align: right;
+  transition: color 0.2s ease;
 }
 
 .card .value .unit {
   font-size: 1rem;
-  color: #555;
+  color: var(--text-dim);
   margin-left: 0.25rem;
 }
 
 .gear-display {
   font-size: 1rem;
-  color: #777;
+  color: var(--text-muted);
   margin-top: auto;
   text-align: right;
+  transition: color 0.2s ease;
 }
 
 .gear-display span {
-  color: #ffcc00; /* High-contrast MoTeC yellow */
+  color: var(--color-gear);
   font-size: 3rem;
   margin-left: 0.5rem;
+  transition: color 0.2s ease;
 }
 
 /* Sharp, flat telemetry bars */
 .bar-track {
-  background: #1a1a1a;
+  background: var(--bar-bg);
   height: 16px;
   width: 100%;
   margin-top: 1.5rem;
-  border: 1px solid #333;
+  border: 1px solid var(--bar-border);
+  transition: background-color 0.2s ease, border-color 0.2s ease;
 }
 
 .bar-track .bar-fill {
-  background: #cccccc;
+  background: var(--bar-fill-rpm);
   height: 100%;
-  transition: width 0.05s linear;
+  transition: width 0.05s linear, background-color 0.2s ease;
 }
 
 .bar-track.vertical {
@@ -153,16 +314,16 @@
 
 .bar-track.vertical .bar-fill {
   width: 100%;
-  transition: height 0.05s linear;
+  transition: height 0.05s linear, background-color 0.2s ease;
 }
 
 /* Pure colors for driver inputs */
 .bar-track.vertical .bar-fill.throttle {
-  background: #00ff00;
+  background: var(--bar-fill-throttle);
 }
 
 .bar-track.vertical .bar-fill.brake {
-  background: #ff0000;
+  background: var(--bar-fill-brake);
 }
 
 .pedal-bars {
@@ -178,5 +339,6 @@
   align-items: center;
   gap: 0.5rem;
   font-size: 0.85rem;
-  color: #888;
+  color: var(--text-muted);
+  transition: color 0.2s ease;
 }

@@ -1,16 +1,21 @@
 import { Component, inject, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TelemetryService } from './services/telemetry.service';
+import { ThemeService } from './services/theme.service';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [CommonModule],
   templateUrl: './app.html',
-  styleUrls: ['./app.css']
+  styleUrls: ['./app.css'],
+  host: {
+    '[attr.data-theme]': 'themeService.theme()'
+  }
 })
 export class App {
   protected telemetryService = inject(TelemetryService);
+  protected themeService = inject(ThemeService);
   
   protected car = this.telemetryService.carState;
   protected connected = this.telemetryService.isConnected;

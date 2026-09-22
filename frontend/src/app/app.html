@@ -1,9 +1,24 @@
 <main class="pitwall-container">
   <header class="header">
     <h1>ACC PITWALL <span>v0.1.0</span></h1>
-    <div class="status-pill" [class.online]="connected()">
-      <span class="dot"></span>
-      {{ connected() ? 'LIVE TELEMETRY' : 'OFFLINE (RECONNECTING)' }}
+    <div class="header-actions">
+      <div class="status-pill" [class.online]="connected()">
+        <span class="dot"></span>
+        {{ connected() ? 'LIVE TELEMETRY' : 'OFFLINE (RECONNECTING)' }}
+      </div>
+
+      <button
+        type="button"
+        class="theme-toggle-btn"
+        (click)="themeService.toggle()"
+        [attr.aria-label]="themeService.isDark() ? 'Switch to light mode' : 'Switch to dark mode'"
+        [attr.title]="themeService.isDark() ? 'Switch to light mode' : 'Switch to dark mode'"
+      >
+        <span class="toggle-track" [class.dark]="themeService.isDark()">
+          <span class="toggle-thumb"></span>
+        </span>
+        <span class="theme-label">{{ themeService.isDark() ? 'DARK' : 'LIGHT' }}</span>
+      </button>
     </div>
   </header>
 
